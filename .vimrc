@@ -24,14 +24,31 @@ if has("autocmd")
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"
+
+" Pathogen plugin
+call pathogen#infect()
+
+" NERDTree plugin
+autocmd VimEnter * NERDTree
+
+" Airline plugin
+if has('gui_running')
+	let g:airline_powerline_fonts   = 1
+	let g:airline_enable_syntastic  = 1
+	let g:airline_enable_branch     = 1
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI settings
 "
 
 if has('gui_running')
 	
 	" Set color scheme and fonts
-	colorscheme solarized
 	set background=dark
+	colorscheme solarized
 
 	" Set fonts for windows
 	if has('win32') || has('win64')
@@ -46,7 +63,30 @@ if has('gui_running')
 	" Remove toolbar and side scroll
 	set guioptions-=T 
 	set guioptions-=rL
-			
+
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Terminal settings
+"
+
+if ! has('gui_running')
+
+	" Use 256 colors
+	set t_Co=256
+	
+	" Set colorscheme
+	colorscheme kolor
+
+	" Disable symbols for Airline plugin
+	let g:airline_left_sep          = ' '
+	let g:airline_left_alt_sep      = ' '
+	let g:airline_right_sep         = ' '
+	let g:airline_right_alt_sep     = ' '
+	let g:airline_branch_prefix     = ' '
+	let g:airline_readonly_symbol   = ' '
+	let g:airline_linecolumn_prefix = ' '
+
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,23 +105,9 @@ nmap <F1> <esc>
 nmap J 15j              " move down 15 lines
 nmap K 15k              " move up 15 lines
 
-" Switch window
-nnoremap <leader>w <c-w><c-w> 
+" Toggle window
+map <F1> <c-w><c-w>
 
-" NERD Tree
+" Toggle NERDTree
 map <F2> :NERDTreeToggle<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
-"
-
-" Pathogen
-call pathogen#infect()
-
-" NERDTree plugin
-autocmd VimEnter * NERDTree
-
-" Air line
-let g:airline_powerline_fonts   = 1
-let g:airline_enable_syntastic  = 1
-let g:airline_enable_branch     = 1
