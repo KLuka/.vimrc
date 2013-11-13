@@ -1,9 +1,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Basic configuration
 "
-set encoding=utf-8        " text encoding
 set nocompatible          " compatibility with vi OFF
+set encoding=utf-8        " text encoding
 set number                " show line numbering
+set hidden                " Hide file in new one is opened
 set backspace=2           " backspace to normal mode
 set tabstop=4             " tabstop to 4 spaces
 set shiftwidth=4          " shiftwidth to 4 spaces
@@ -16,6 +17,7 @@ set hlsearch              " highlight search
 set incsearch             " search while typing
 set ignorecase            " ignore case in search 
 set smartcase             " don't ignore if uppercase in search term
+set noswapfile 			  " don't use swap files
 syntax enable             " syntax coloring
 
 " Remember last edit position
@@ -27,11 +29,12 @@ endif
 " Plugins
 "
 
+" Detect filetype
+filetype plugin indent on
+
 " Pathogen plugin
 call pathogen#infect()
 
-" NERDTree plugin
-autocmd VimEnter * NERDTree
 
 " Airline plugin
 if has('gui_running')
@@ -47,8 +50,11 @@ endif
 if has('gui_running')
 	
 	" Set color scheme and fonts
-	set background=dark
-	colorscheme solarized
+	set background=light
+	colorscheme kolor
+
+	" NERDTree plugin
+	autocmd VimEnter * NERDTree
 
 	" Set fonts for windows
 	if has('win32') || has('win64')
@@ -76,7 +82,7 @@ if ! has('gui_running')
 	set t_Co=256
 	
 	" Set colorscheme
-	colorscheme kolor
+	colorscheme default 
 
 	" Disable symbols for Airline plugin
 	let g:airline_left_sep          = ' '
@@ -105,9 +111,13 @@ nmap <F1> <esc>
 nmap J 15j              " move down 15 lines
 nmap K 15k              " move up 15 lines
 
-" Toggle window
-map <F1> <c-w><c-w>
-
 " Toggle NERDTree
 map <F2> :NERDTreeToggle<CR>
+" Toggle Tagbar
+map <F3> :Tagbar<CR>
 
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
